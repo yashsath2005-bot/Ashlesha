@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A Letter for Ashlesha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a0a0a; /* Deep chocolate/wine background */
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* Rose Petal Animation */
+        .petal {
+            position: absolute;
+            background: #ff4d6d;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #envelope {
+            width: 300px;
+            height: 200px;
+            background: #f3e5ab;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: 1s;
+            z-index: 10;
+        }
+
+        /* The Wax Seal */
+        #seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: #9e1b32;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd700;
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            z-index: 11;
+        }
+
+        #letter {
+            position: absolute;
+            width: 80%;
+            max-width: 450px;
+            background: #fff9e6;
+            padding: 40px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(100px) rotateX(-20deg);
+            transition: 2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            text-align: center;
+            z-index: 5;
+            border: 1px solid #d4af37;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #9e1b32;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .heart {
+            color: #9e1b32;
+            font-size: 30px;
+            margin-top: 20px;
+            animation: beat 1s infinite;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .open-envelope {
+            transform: translateY(-300px) rotateX(20deg) scale(0.5);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .show-letter {
+            opacity: 1 !important;
+            transform: translateY(0) rotateX(0deg) !important;
+        }
+
+        .yes-btn {
+            background: #9e1b32;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-family: 'Playfair Display', serif;
+            margin-top: 25px;
+            cursor: pointer;
+            border-radius: 2px;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .yes-btn:hover { background: #6b1222; letter-spacing: 4px; }
+    </style>
+</head>
+<body>
+
+    <div id="envelope" onclick="openLetter()">
+        <div id="seal">A</div>
+    </div>
+
+    <div id="letter">
+        <h1>Dearest Ashlesha,</h1>
+        <p>
+            In the quiet moments of the night,<br>
+            my thoughts always find their way to you.<br>
+            You are the poetry in my soul and the<br>
+            light in my darkest hours.
+        </p>
+        <div class="heart">❤️</div>
+        <button class="yes-btn" onclick="celebrate()">Be My Valentine?</button>
+    </div>
+
+    <script>
+        function openLetter() {
+            document.getElementById('envelope').classList.add('open-envelope');
+            setTimeout(() => {
+                document.getElementById('letter').classList.add('show-letter');
+                startPetals();
+            }, 500);
+        }
+
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.style.left = Math.random() * window.innerWidth + 'px';
+            petal.style.width = Math.random() * 15 + 10 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.top = '-20px';
+            
+            const duration = Math.random() * 3 + 4;
+            petal.animate([
+                { transform: `translateY(0) rotate(0deg)`, opacity: 0.7 },
+                { transform: `translateY(${window.innerHeight + 20}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+            ], {
+                duration: duration * 1000,
+                easing: 'linear'
+            });
+
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), duration * 1000);
+        }
+
+        function startPetals() {
+            setInterval(createPetal, 300);
+        }
+
+        function celebrate() {
+            alert("The happiest 'Yes' in the world! ❤️");
+        }
+    </script>
+</body>
+</html>
